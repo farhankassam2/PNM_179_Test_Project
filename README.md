@@ -2,20 +2,11 @@
 
 This repository should be primarily used to reproduce the issue desribed in this Github issue link: https://github.com/facebook/react-native/issues/30221. Since our project is confidential and material cannot be shared publicly, I wanted to reproduce the bug I was experiencing linking the `react-native-branch` npm package with a sample RN project public repo, which can be used for testing and reproducing of the issue.
 
-In this sample repo, I simply underwent the process of initializing a new react native project using the basic CLI commands provided by React, with iOS being the target. After that, I followed the following steps to link the `react-native-branch` package:
+In this sample repo, I simply underwent the process of initializing a new react native project using the basic CLI commands provided by React, with iOS being the target. After that, I followed the following steps to link the `react-native-branch` package. A word of note is that I followed a different sequence of steps as a workaround for another bug with linking the branch package. I manually linked the package using `react-native link react-native-branch` because the way the package is structured is slightly outdated as it was created before React Native 0.60 was released, during which packages had to be manually linked. Please refer to this Github comment for further details: https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution/issues/361#issuecomment-415149270.
 
-pod deintegrate
-rm Podfile
-yarn add react-native-branch
-react-native link react-native-branch
-git checkout -- Podfile
-pod install
+After doing the above, `RNBranch` was successfully linked to the this fresh react native project. 
 
-A word of note is that I followed the above steps as a workaround for another bug with linking the branch package mentioned above. I am manually linking the package using `react-native link react-native-branch` because the way the package is structured is slightly outdated as it was created before React 0.60 was released. Please refer to this Github comment for further details: https://github.com/BranchMetrics/react-native-branch-deep-linking-attribution/issues/361#issuecomment-415149270.
-
-After doing the above, RNBranch.h was successfully linked to the this fresh react native project. 
-
-Now to reproduce the issue, follow the steps below precisely:
+Now to reproduce the issue, follow the steps below very precisely, without error:
 1) Ensure you have the necessary tools installed globally such as `node` and `npm` as well as `cocoapods` and `watchman`. If you do not have any of these installed, you can follow the steps highlighted in [HERE](https://reactnative.dev/docs/0.60/getting-started) up until you reach "React Native Command Line Interface".
 2) Ensure that you have these pods in the `Podfile`: 
 `  pod 'react-native-branch', path: '../node_modules/react-native-branch'
